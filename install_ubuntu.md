@@ -1,7 +1,12 @@
 ```
 ### Install from scratch the tools and a workspace on a new ubuntu desktop machine
 sudo apt-get update
-sudo apt-get install -y git xclip docker
+sudo apt-get install -y git xclip 
+curl -sSL https://get.docker.com/ | sh
+sudo usermod -aG docker $USER
+sudo service docker start
+newgrp docker; newgrp $USER # Hack to force adding the docker group without logout
+
 
 ### Create a scratch directory
 SCRATCH=/home/scratch
@@ -20,7 +25,19 @@ echo "Click <Add key> and paste the public key which is in the clipboard"
 ### Default git configuration
 git config --global user.email "$USER@gmail.com"
 git config --global user.name "$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)"
+git config --global color.ui auto
+mkdir ~/bin
+PATH=~/bin:$PATH
+echo PATH=~/bin:$PATH >> ~/.bashrc
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
 
-#git clone https://github.com/$USER/$USER.github.io
-#cd $USER.github.io
+### Clone source code
+git clone https://github.com/jguiraudet/jguiraudet.github.io
+mkdir ws; cd ws
+repo init -u git@bitbucket.org:jguiraudet/manifests.git
+repo sync -qj8
+
+
+
 ```
