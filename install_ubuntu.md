@@ -38,6 +38,8 @@ mkdir ws; cd ws
 repo init -u git@bitbucket.org:jguiraudet/manifests.git
 repo sync -qj8
 
+### Update aliases
+echo 'alias gp="git push bitbucket HEAD:master"' >> ~/.bash_aliases
 
 
 ```
