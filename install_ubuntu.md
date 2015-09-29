@@ -8,7 +8,7 @@ SCRATCH=/home/scratch
 # Install from scratch the tools and a workspace on a new ubuntu desktop machine
 sudo apt-get update
 sudo apt-get -y upgrade
-sudo apt-get install -y git xclip 
+sudo apt-get install -y git xclip openssh-server
 sudo apt-get install -y nvidia-346-uvm
 
 # Install docker
