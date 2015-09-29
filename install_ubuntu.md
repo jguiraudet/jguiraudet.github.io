@@ -1,5 +1,6 @@
 
 ``` bash
+set -e
 # Install from scratch the tools and a workspace on a new ubuntu desktop machine
 
 sudo apt-get update
