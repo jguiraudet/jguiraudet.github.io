@@ -1,7 +1,12 @@
-# Install from scratch the tools and a workspace on a new ubuntu desktop machine
 
+``` bash
+# Install from scratch the tools and a workspace on a new ubuntu desktop machine
 sudo apt-get update
 sudo apt-get install -y git xclip docker
+
+# Install google-chrome
+cd /tmp; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo dpkg -i google-chrome*.deb
+
 
 # Create a scratch directory
 SCRATCH=/home/scratch
@@ -23,4 +28,4 @@ git config --global user.name "$(getent passwd $USER | cut -d ':' -f 5 | cut -d 
 
 #git clone https://github.com/$USER/$USER.github.io
 #cd $USER.github.io
-
+```
