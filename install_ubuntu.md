@@ -9,6 +9,9 @@ SCRATCH=/home/scratch
 sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get install -y git xclip 
+sudo apt-get install -y nvidia-346-uvm
+
+# Install docker
 curl -sSL https://get.docker.com/ | sh
 sudo usermod -aG docker $USER
 sudo service docker start
