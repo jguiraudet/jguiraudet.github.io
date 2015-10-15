@@ -14,6 +14,9 @@ sudo apt-get install -y nvidia-346-uvm
 # Install docker
 curl -sSL https://get.docker.com/ | sh
 sudo usermod -aG docker $USER
+set +e
+sudo service docker start
+set -e
 sudo service docker start
 
 # Install google-chrome
@@ -21,9 +24,11 @@ cd /tmp; wget https://dl.google.com/linux/direct/google-chrome-stable_current_am
 google-chrome http://jguiraudet.github.io/install_ubuntu.md &
 
 ### Create a scratch directory
+set +e
 sudo mkdir -p  $SCRATCH
 sudo chgrp adm $SCRATCH
 sudo chmod g+rwx $SCRATCH
+set -e
 cd $SCRATCH
 
 ### Create new SSH keys
