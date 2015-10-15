@@ -43,6 +43,7 @@ git config --global color.ui auto
 mkdir ~/bin
 PATH=~/bin:$PATH
 echo PATH=~/bin:$PATH >> ~/.bashrc
+source ~/.bashrc
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
 
