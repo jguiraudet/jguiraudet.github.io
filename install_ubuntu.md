@@ -15,7 +15,7 @@ sudo apt-get install -y nvidia-346-uvm
 curl -sSL https://get.docker.com/ | sh
 sudo usermod -aG docker $USER
 set +e
-sudo service docker start
+sudo service docker stop
 set -e
 sudo service docker start
 
