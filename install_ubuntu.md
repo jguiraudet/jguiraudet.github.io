@@ -8,16 +8,22 @@ SCRATCH=/home/scratch
 # Install from scratch the tools and a workspace on a new ubuntu desktop machine
 sudo apt-get update
 sudo apt-get -y upgrade
-sudo apt-get install -y git xclip openssh-server
-sudo apt-get install -y nvidia-346-uvm
 
-# Install docker
-curl -sSL https://get.docker.com/ | sh
+# Install docker. See: http://docs.docker.com/engine/installation/ubuntulinux/
+sudo apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+sudo bash -c 'echo "deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -sc) main" > /etc/apt/sources.list.d/docker.list'
+sudo apt-get purge lxc-docker*   # Purge the old repo if it exists.
+sudo apt-get update
+apt-cache policy docker-engine   # Verify that apt is pulling from the right repository.
+sudo apt-get install -y docker-engine
 sudo usermod -aG docker $USER
-set +e
-sudo service docker stop
-set -e
-sudo service docker start
+newgrp docker; newgrp $USER # Hack to force adding the docker group without logout
+
+ 
+
+##sudo apt-get install -y git xclip openssh-server
+##sudo apt-get install -y nvidia-346-uvm
+
 
 # Install google-chrome
 cd /tmp; wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; sudo dpkg -i google-chrome*.deb
@@ -36,7 +42,8 @@ ssh-keygen -b 2048 -t rsa -f $HOME/.ssh/id_rsa -q -N ""
 echo "Public key for this machine. Please add it to bitbucket or github: "
 cat $HOME/.ssh/id_rsa.pub
 
-### Default git configuration
+### Install and configure git
+sudo apt-get install -y git
 git config --global user.email "$USER@gmail.com"
 git config --global user.name "$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)"
 git config --global color.ui auto
