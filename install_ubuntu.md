@@ -43,7 +43,7 @@ echo "Public key for this machine. Please add it to bitbucket or github: "
 cat $HOME/.ssh/id_rsa.pub
 
 ### Install and configure git
-sudo apt-get install -y git
+sudo apt-get install -y git curl
 git config --global user.email "$USER@gmail.com"
 git config --global user.name "$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)"
 git config --global color.ui auto
