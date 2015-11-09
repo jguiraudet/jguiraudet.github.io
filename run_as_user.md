@@ -8,7 +8,7 @@ A way to avoid this is to create a non-root user and to switch to it prior to ex
 The following example shows how to start a bash shell with the original user of the host:
 
 ```bash
-docker run --name $USER -ti -v $HOME:$HOME ubuntu:14.04.3 bash -c "adduser --disabled-password --gecos '' --uid $UID --ingroup users $USER && adduser $USER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ; cd $HOME && su $USER"
+docker run --name $USER -ti -v $HOME:$HOME ubuntu:14.04.3 bash -c "adduser --disabled-password --gecos \"$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)\" --uid $UID --ingroup users $USER && adduser $USER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ; cd $HOME && su $USER"
 ```
 
 To start the bash command within the same container use:
