@@ -47,6 +47,8 @@ sudo apt-get install -y git curl
 git config --global user.email "$USER@gmail.com"
 git config --global user.name "$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)"
 git config --global color.ui auto
+git config --global push.default simple
+
 mkdir ~/bin
 PATH=~/bin:$PATH
 echo PATH=~/bin:$PATH >> ~/.bashrc
