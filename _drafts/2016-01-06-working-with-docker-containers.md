@@ -44,7 +44,7 @@ Docker is not easy to use especially for developement environment (See post of A
 * [How To Secure Nginx with Let's Encrypt on Ubuntu 14.04][nginx-letsencrypt]
 * [nw_isolated example in docker documentation][docker-a-bridge-network]
 * [How To Set Up Password Authentication with Nginx on Ubuntu 14.04][nginx-authentication] with a password file
-* add jekyll-dev/htpasswd to manage the .htpasswd file from the host. Use -B to force bcrypt encryption of the password for more security
+* add jekyll-dev/htpasswd to manage the .htpasswd file from the host. Use -B to force bcrypt encryption of the password for more security.
 
 Check out the [Docker documentations][docker-docs] for more info.
 
