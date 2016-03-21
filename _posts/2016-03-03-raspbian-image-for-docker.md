@@ -46,8 +46,16 @@ mkdir root
 sudo  mount -o loop,offset=$(($OFFSET*512)) $DISK_IMG.img root
 # Disable preloaded shared library to get everything including networking to work on x86
 sudo mv root/etc/ld.so.preload root/etc/ld.so.preload.bak
+
 # Copy qemu-arm-static in the image be able to interpret arm elf on x86
-sudo cp /usr/bin/qemu-arm-static root/usr/bin
+if /usr/bin/qemu-arm-static -version | grep 2.0.0; 
+then 
+	# Fix crash with `tcg.c:1693: tcg fatal error` by using a more recent version
+	wget https://jguiraudet.github.io/assests/bin/qemu-arm-static
+	sudo cp ./qemu-arm-static        root/usr/bin
+else
+	sudo cp /usr/bin/qemu-arm-static root/usr/bin
+fi
 # Create docker images
 cd root
 sudo tar -c . | sudo docker import - $DISK_IMG
