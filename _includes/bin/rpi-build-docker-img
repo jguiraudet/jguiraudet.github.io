@@ -5,6 +5,7 @@
 # Change the SRC path if needed:
 SRC=https://downloads.raspberrypi.org/raspbian_lite_latest
 
+set -e
 sudo echo Info: Need root access to mount the image to extract the content
 mkdir raspbian-tmp
 cd raspbian-tmp
@@ -23,19 +24,24 @@ if /usr/bin/qemu-arm-static -version | grep 2.0.0;
 then 
 	# Fix crash with `tcg.c:1693: tcg fatal error` by using a more recent version
 	wget https://jguiraudet.github.io/assets/bin/qemu-arm-static
+	chmod 755 ./qemu-arm-static
 	sudo cp ./qemu-arm-static        root/usr/bin
 else
 	sudo cp /usr/bin/qemu-arm-static root/usr/bin
 fi
+
 # Create docker images
 cd root
-sudo tar -c . | sudo docker import - $DISK_IMG
+sudo tar -c . | sudo docker import - jguiraudet/raspbian-lite-for-x86_64:$DISK_IMG
 cd ..
+
+# Clean-up
 sudo umount root
 rmdir root
+rm $DISK_IMG.img
 sudo docker images | grep raspbian
 
 echo Test the image with:
-echo docker run -ti --rm $DISK_IMG /bin/bash -c 'uname -a'
-if docker run -ti --rm $DISK_IMG /bin/bash -c 'uname -a' | grep armv7l; then echo OK; else echo FAIL; fi
+echo docker run -ti --rm jguiraudet/raspbian-lite-for-x86_64:$DISK_IMG /bin/bash -c \'uname -a\'
+if docker run -ti --rm jguiraudet/raspbian-lite-for-x86_64:$DISK_IMG /bin/bash -c 'uname -a' | grep armv7l; then echo OK; else echo FAIL; fi
 

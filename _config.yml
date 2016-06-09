@@ -16,3 +16,7 @@ github_username:  jguiraudet
 
 # Build settings
 markdown: kramdown
+
+kramdown:
+  input: GFM
+

@@ -24,6 +24,7 @@ sudo apt-get update
 sudo apt-get install -y ubuntu-zfs
 sudo modprobe zfs
 lsmod | grep zfs
+ls -la /dev/disk/by-id
 
 truncate -s 6TB /tmp/sparsefile
 sudo zpool create  data mirror /dev/disk/by-id/ata-WDC_WD60EZRX-00MVLB1_WD-WX11D153XENZ-part1 /tmp/sparsefile
